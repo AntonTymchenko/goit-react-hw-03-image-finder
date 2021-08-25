@@ -1,9 +1,14 @@
 import React from "react";
 import "./imageGalleryItem.css";
 
-function ImageGalleryItem({ id, alt, webformatURL, largeImageURL }) {
+function ImageGalleryItem({ id, alt, webformatURL, largeImageURL, onClick }) {
+  const obj = {
+    id,
+    alt,
+    largeImageURL,
+  };
   return (
-    <li key={id} className="ImageGalleryItem">
+    <li key={id} className="ImageGalleryItem" onClick={() => onClick(obj)}>
       <img
         src={webformatURL}
         alt={alt}

@@ -49,7 +49,7 @@ class ImageGallery extends Component {
   handleLoadMoreButton = () => {
     this.setState((prevState) => ({
       page: prevState.page + 1,
-      status: Status.PENDING,
+      // status: Status.PENDING,
     }));
 
     setTimeout(() => {
@@ -96,7 +96,8 @@ class ImageGallery extends Component {
                 id={id}
                 alt={tags}
                 webformatURL={webformatURL}
-                largeImageUR={largeImageURL}
+                largeImageURL={largeImageURL}
+                onClick={this.props.onCLickImg}
               />
             ))}
           </ul>
@@ -107,7 +108,6 @@ class ImageGallery extends Component {
     if (status === "rejected") {
       return <h2>{error.message}</h2>;
     }
-    return null;
   }
 }
 
