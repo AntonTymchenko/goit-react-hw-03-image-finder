@@ -67,6 +67,13 @@ class ImageGallery extends Component {
         .catch((error) => this.setState({ error, status: Status.REJECTED }));
     }, 0);
   };
+  changeStatusScrooll = (obj) => {
+    const { onCLickImg } = this.props;
+    onCLickImg(obj);
+    this.setState({
+      scrollStatus: false,
+    });
+  };
 
   render() {
     const { status, imgCards, error, scrollStatus } = this.state;
@@ -98,7 +105,7 @@ class ImageGallery extends Component {
                 alt={tags}
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
-                onClick={this.props.onCLickImg}
+                onClick={this.changeStatusScrooll}
                 scrollStatus={scrollStatus}
               />
             ))}

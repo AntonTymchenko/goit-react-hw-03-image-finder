@@ -24,7 +24,13 @@ function ImageGalleryItem({
     largeImageURL,
   };
   return (
-    <li key={id} className="ImageGalleryItem" onClick={() => onClick(obj)}>
+    <li
+      key={id}
+      className="ImageGalleryItem"
+      onClick={() => {
+        onClick(obj);
+      }}
+    >
       <img
         src={webformatURL}
         alt={alt}
