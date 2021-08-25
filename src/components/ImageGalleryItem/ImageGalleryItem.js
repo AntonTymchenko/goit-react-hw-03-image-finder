@@ -1,7 +1,7 @@
 import React from "react";
 import "./imageGalleryItem.css";
 
-export function ImageGalleryItem({ id, alt, webformatURL, largeImageURL }) {
+function ImageGalleryItem({ id, alt, webformatURL, largeImageURL }) {
   return (
     <li key={id} className="ImageGalleryItem">
       <img
@@ -13,3 +13,5 @@ export function ImageGalleryItem({ id, alt, webformatURL, largeImageURL }) {
     </li>
   );
 }
+
+export default ImageGalleryItem;
