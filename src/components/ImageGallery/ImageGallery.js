@@ -19,6 +19,7 @@ class ImageGallery extends Component {
     error: null,
     status: Status.IDLE,
     page: 1,
+    scrollStatus: false,
   };
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.imgName;
@@ -49,7 +50,7 @@ class ImageGallery extends Component {
   handleLoadMoreButton = () => {
     this.setState((prevState) => ({
       page: prevState.page + 1,
-      // status: Status.PENDING,
+      scrollStatus: true,
     }));
 
     setTimeout(() => {
@@ -68,7 +69,7 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { status, imgCards, error } = this.state;
+    const { status, imgCards, error, scrollStatus } = this.state;
 
     if (status === "idle") {
       return null;
@@ -98,6 +99,7 @@ class ImageGallery extends Component {
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
                 onClick={this.props.onCLickImg}
+                scrollStatus={scrollStatus}
               />
             ))}
           </ul>

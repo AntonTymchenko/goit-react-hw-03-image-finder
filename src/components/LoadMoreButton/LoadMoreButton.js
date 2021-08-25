@@ -1,11 +1,6 @@
 import React from "react";
 import "./LoadMoreButton.css";
 
-window.scrollTo({
-  top: document.documentElement.scrollHeight,
-  behavior: "smooth",
-});
-
 function LoadMoreButton({ handleLoadMoreButton }) {
   return (
     <button
