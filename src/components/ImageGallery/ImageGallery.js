@@ -50,9 +50,8 @@ class ImageGallery extends Component {
     const nextPage = this.state.page;
     if (prevPage !== nextPage) {
       const { imgName } = this.props;
-      const newPage = this.state.page;
 
-      fetchPicture(imgName, newPage)
+      fetchPicture(imgName, nextPage)
         .then(({ hits }) => {
           console.log(hits);
           this.setState({
