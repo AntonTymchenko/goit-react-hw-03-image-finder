@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
 import "./ImageGallery.css";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { toast } from "react-toastify";
+import fetchPicture from "../servece/photo-api";
 
 const Status = {
   IDLE: "idle",
@@ -27,11 +29,9 @@ class ImageGallery extends Component {
 
     if (prevName !== nextName) {
       this.setState({ status: Status.PENDING });
+      const { page } = this.state;
 
-      fetch(
-        `https://pixabay.com/api/?q=${this.props.imgName}&page=${this.state.page}&key=22260377-843feab13a68cee38d30608c2&image_type=photo&orientation=horizontal&per_page=12`
-      )
-        .then((response) => response.json())
+      fetchPicture(nextName, page)
         .then(({ hits }) => {
           if (hits.length === 0) {
             this.setState({
@@ -46,26 +46,28 @@ class ImageGallery extends Component {
         })
         .catch((error) => this.setState({ error, status: Status.REJECTED }));
     }
-  }
-  handleLoadMoreButton = () => {
-    this.setState((prevState) => ({
-      page: prevState.page + 1,
-      scrollStatus: true,
-    }));
+    const prevPage = prevState.page;
+    const nextPage = this.state.page;
+    if (prevPage !== nextPage) {
+      const { imgName } = this.props;
+      const newPage = this.state.page;
 
-    setTimeout(() => {
-      fetch(
-        `https://pixabay.com/api/?q=${this.props.imgName}&page=${this.state.page}&key=22260377-843feab13a68cee38d30608c2&image_type=photo&orientation=horizontal&per_page=12`
-      )
-        .then((response) => response.json())
+      fetchPicture(imgName, newPage)
         .then(({ hits }) => {
+          console.log(hits);
           this.setState({
             imgCards: [...this.state.imgCards, ...hits],
             status: Status.RESOLVED,
           });
         })
         .catch((error) => this.setState({ error, status: Status.REJECTED }));
-    }, 0);
+    }
+  }
+  handleLoadMoreButton = () => {
+    this.setState((prevState) => ({
+      page: prevState.page + 1,
+      scrollStatus: true,
+    }));
   };
   changeStatusScrooll = (obj) => {
     const { onCLickImg } = this.props;
@@ -119,5 +121,9 @@ class ImageGallery extends Component {
     }
   }
 }
+ImageGallery.propType = {
+  img: PropTypes.string.isRequired,
+  onCLickImg: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;

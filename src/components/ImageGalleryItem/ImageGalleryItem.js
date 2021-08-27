@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./imageGalleryItem.css";
 
 const scroll = () => {
@@ -41,5 +42,14 @@ function ImageGalleryItem({
     </li>
   );
 }
+
+ImageGalleryItem.propTypes = {
+  alt: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  scrollStatus: PropTypes.bool.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+};
 
 export default ImageGalleryItem;
